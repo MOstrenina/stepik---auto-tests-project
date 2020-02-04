@@ -7,14 +7,6 @@ import math
 import pytest
 
 
-@pytest.fixture(scope="function")
-def browser():
-    print("\nstart browser for test..")
-    browser = webdriver.Chrome()
-    yield browser
-    print("\nquit browser..")
-    browser.quit()
-
 
 @pytest.mark.parametrize('link', ["236895", "236896", "236897", "236898", "236899", "236903", "236904", "236905"])
 def test_collect_statement(browser, link):
@@ -28,7 +20,7 @@ def test_collect_statement(browser, link):
     button.click()
     res_text = WebDriverWait(browser, 3).until(EC.visibility_of_element_located((By.CLASS_NAME, "smart-hints__hint"))).text
     assert res_text == 'Correct!', \
-        f"Not equal to expected result, only {res_text}"
+        f"Not equal to expected result, only '{res_text}'"
 
 
 # красивый запуск pytest -s -v --tb=line test_lesson_3_6_issue_1.py
